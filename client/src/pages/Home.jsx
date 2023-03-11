@@ -3,16 +3,10 @@ import React from 'react';
 
 export default function Home() {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const [searchText, setSearchText] = React.useState('apple');
-
-  const baseURL = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=";
+  const baseURL =
+    'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=';
 
   const [stocks, setStocks] = React.useState(null);
-  // React.useEffect(() => {
-  //   axios.get(baseURL).then((response) => {
-  //     setStocks(response.data);
-  //   });
-  // }, []);
 
   return (
     <div>
@@ -39,7 +33,15 @@ export default function Home() {
           <input
             onChange={(e) => {
               e.preventDefault();
-              setSearchText(e.target.value);
+              if(e.target.value === '') return setStocks(null);
+              axios
+                .get(
+                  baseURL +
+                    `${e.target.value}&apikey=${import.meta.env.VITE_API_KEY}`
+                )
+                .then((response) => {
+                  setStocks(response.data);
+                });
             }}
             type="text"
             id="simple-search"
@@ -51,12 +53,6 @@ export default function Home() {
         <button
           onClick={(e) => {
             e.preventDefault();
-            
-            axios.get(baseURL + `${searchText}&apikey=${
-              import.meta.env.VITE_API_KEY
-            }`).then((response) => {
-              setStocks(response.data);
-            });
           }}
           type="submit"
           className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -80,6 +76,5 @@ export default function Home() {
       </form>
       <p>{JSON.stringify(stocks)}</p>
     </div>
-    
   );
 }
