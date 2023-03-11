@@ -1,9 +1,9 @@
-import Home from "./pages/Home";
+import StockSearch from "./components/StockSearch";
 
 function App() {
   return (
     <div>
-      <Home />
+      <StockSearch />
     </div>
   )
 }
