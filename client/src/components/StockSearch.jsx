@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import DatePicker from './DatePicker';
+import SearchItem from './SearchItem';
 
 export default function StockSearch() {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -34,14 +35,14 @@ export default function StockSearch() {
           <input
             onChange={(e) => {
               e.preventDefault();
-              if(e.target.value === '') return setStocks(null);
+              if (e.target.value === '') return setStocks(null);
               axios
                 .get(
                   baseURL +
                     `${e.target.value}&apikey=${import.meta.env.VITE_API_KEY}`
                 )
                 .then((response) => {
-                  setStocks(response.data);
+                  setStocks(response.data.bestMatches);
                 });
             }}
             type="text"
@@ -52,8 +53,30 @@ export default function StockSearch() {
           ></input>
         </div>
       </form>
+      {stocks && stocks.length !== 0 && (
+        <div
+          id="dropdownHelperRadio"
+          className="flex items-center w-full bg-white divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700 dark:divide-gray-600"
+        >
+          <ul
+            className="p-3 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownHelperRadioButton"
+          >
+            {stocks &&
+              stocks.map((stock) => {
+                return (
+                  <SearchItem
+                    key={stock['1. symbol']}
+                    symbol={stock['1. symbol']}
+                    name={stock['2. name']}
+                  />
+                );
+              })}
+          </ul>
+        </div>
+      )}
+
       <DatePicker />
-      <p>{JSON.stringify(stocks)}</p>
     </div>
   );
 }
