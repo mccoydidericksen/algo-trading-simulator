@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React from 'react';
-import DatePicker from './DatePicker';
 import SearchItem from './SearchItem';
 
 export default function StockSearch() {
@@ -12,9 +11,9 @@ export default function StockSearch() {
 
   return (
     <div>
-      <form className="flex items-center">
+      <div>
         <label htmlFor="simple-search" className="sr-only">
-          Search
+          Stock Search
         </label>
         <div className="relative w-full">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -48,14 +47,14 @@ export default function StockSearch() {
             type="text"
             id="simple-search"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search"
+            placeholder="Stock Search"
             required
           ></input>
         </div>
-      </form>
+      </div>
       {stocks && stocks.length !== 0 && (
         <div
-          id="dropdownHelperRadio"
+          id="star"
           className="flex items-center w-full bg-white divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700 dark:divide-gray-600"
         >
           <ul
@@ -75,8 +74,6 @@ export default function StockSearch() {
           </ul>
         </div>
       )}
-
-      <DatePicker />
     </div>
   );
 }
