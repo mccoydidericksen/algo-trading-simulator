@@ -3,6 +3,7 @@ import DatePicker from './components/DatePicker';
 import InvestmentPicker from './components/InvestmentPicker';
 import AlgoSelect from './components/AlgoSelect';
 import React from 'react';
+import axios from 'axios';
 
 function App() {
   const [stocks, setStocks] = React.useState(null);
@@ -11,6 +12,8 @@ function App() {
   const [investment, setInvestment] = React.useState(10000);
   const [algo, setAlgo] = React.useState(null);
   const [prices, setPrices] = React.useState(null);
+  const baseURL = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=';
+  console.log(prices)
   const selection = {
     symbol,
     startDate,
@@ -27,7 +30,16 @@ function App() {
               <DatePicker setStartDate={setStartDate}/>
               <InvestmentPicker setInvestment={setInvestment}/>
               <AlgoSelect setAlgo={setAlgo} algo={algo}/>
-              <button className="btn btn-primary">Submit</button>
+              <button className="btn btn-primary"
+                onClick={() => {
+                  console.log(selection);
+                  axios
+                    .get(baseURL + `${symbol}&outputsize=compact&apikey=${import.meta.env.VITE_API_KEY}`)
+                    .then((response) => {
+                      setPrices(response.data);
+                    });
+                }}
+              >Submit</button>
             </div>
           </div>
         </div>
