@@ -1,8 +1,8 @@
 export default function SearchItem(props) {
     return (
         <li>
-        <div className="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-          <div className="flex items-center">
+        <div className="flex justify-start p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+          <div className="flex items-left">
             <input
               id="helper-radio-4"
               name="helper-radio"
@@ -16,10 +16,10 @@ export default function SearchItem(props) {
               htmlFor="helper-radio-4"
               className="font-medium text-gray-900 dark:text-gray-300"
             >
-              <div>{props.symbol}</div>
+              <div className="flex justify-start">{props.symbol}</div>
               <p
                 id="helper-radio-text-4"
-                className="text-xs font-normal text-gray-500 dark:text-gray-300"
+                className="flex justify-start text-xs font-normal text-gray-500 dark:text-gray-300"
               >
                 {props.name}
               </p>

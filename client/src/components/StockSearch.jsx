@@ -15,7 +15,7 @@ export default function StockSearch() {
         <label htmlFor="simple-search" className="sr-only">
           Stock Search
         </label>
-        <div className="relative w-full">
+        <div className="relative w-96">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
               aria-hidden="true"
@@ -54,8 +54,13 @@ export default function StockSearch() {
       </div>
       {stocks && stocks.length !== 0 && (
         <div
+          onBlur={() => {
+            setTimeout(() => {
+              setStocks(null);
+            }, 100);
+          }}
           id="star"
-          className="flex items-center w-full bg-white divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700 dark:divide-gray-600"
+          className="my-2 flex items-center w-full bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
         >
           <ul
             className="p-3 text-sm text-gray-700 dark:text-gray-200"
