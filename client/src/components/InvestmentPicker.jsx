@@ -1,10 +1,13 @@
-export default function InvestmentPicker() {
+export default function InvestmentPicker(props) {
   return (
     <div>
         <label className="mx-2 text-sm font-medium text-gray-700 dark:text-gray-200">
             Investment Amount
         </label>
       <input
+        onChange={(e) => {
+          props.setInvestment(parseInt(e.target.value));
+        }}
         type="range"
         min="2000"
         max="22000"

@@ -1,10 +1,13 @@
-export default function DatePicker() {
-    return (
-        <div>
-        <label className="mx-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-            Trading Start
-        </label>
+export default function DatePicker(props) {
+  return (
+    <div>
+      <label className="mx-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+        Trading Start
+      </label>
       <input
+        onChange={(e) => {
+          props.setStartDate(parseInt(e.target.value));
+        }}
         type="range"
         min="3"
         max="12"
@@ -19,5 +22,5 @@ export default function DatePicker() {
         <span>1 year ago</span>
       </div>
     </div>
-    )
+  );
 }

@@ -4,7 +4,12 @@ export default function SearchItem(props) {
         <div className="flex justify-start p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
           <div className="flex items-left">
             <input
-              id="helper-radio-4"
+              onClick={(e) => {
+                console.log(e.target.id)
+                props.setSymbol(e.target.id)
+                document.getElementById('simple-search').value = e.target.value
+              }}
+              id={props.symbol}
               name="helper-radio"
               type="radio"
               value=""
@@ -13,7 +18,7 @@ export default function SearchItem(props) {
           </div>
           <div className="ml-2 text-sm">
             <label
-              htmlFor="helper-radio-4"
+              htmlFor={props.symbol}
               className="font-medium text-gray-900 dark:text-gray-300"
             >
               <div className="flex justify-start">{props.symbol}</div>

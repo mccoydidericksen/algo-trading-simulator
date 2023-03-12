@@ -2,12 +2,13 @@ import axios from 'axios';
 import React from 'react';
 import SearchItem from './SearchItem';
 
-export default function StockSearch() {
+export default function StockSearch(props) {
   const apiKey = import.meta.env.VITE_API_KEY;
   const baseURL =
     'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=';
-
-  const [stocks, setStocks] = React.useState(null);
+  if(props.symbol !== null) {
+    document.getElementById('simple-search').value = props.symbol;
+  }
 
   return (
     <div>
@@ -34,29 +35,29 @@ export default function StockSearch() {
           <input
             onChange={(e) => {
               e.preventDefault();
-              if (e.target.value === '') return setStocks(null);
+              if (e.target.value === '') return props.setStocks(null);
               axios
                 .get(
                   baseURL +
                     `${e.target.value}&apikey=${import.meta.env.VITE_API_KEY}`
                 )
                 .then((response) => {
-                  setStocks(response.data.bestMatches);
+                  props.setStocks(response.data.bestMatches);
                 });
             }}
             type="text"
             id="simple-search"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Stock Search"
+            placeholder="Search for a stock"
             required
           ></input>
         </div>
       </div>
-      {stocks && stocks.length !== 0 && (
+      {props.stocks && props.stocks.length !== 0 && (
         <div
           onBlur={() => {
             setTimeout(() => {
-              setStocks(null);
+              props.setStocks(null);
             }, 100);
           }}
           id="star"
@@ -66,13 +67,14 @@ export default function StockSearch() {
             className="p-3 text-sm text-gray-700 dark:text-gray-200"
             aria-labelledby="dropdownHelperRadioButton"
           >
-            {stocks &&
-              stocks.map((stock) => {
+            {props.stocks &&
+              props.stocks.map((stock) => {
                 return (
                   <SearchItem
                     key={stock['1. symbol']}
                     symbol={stock['1. symbol']}
                     name={stock['2. name']}
+                    setSymbol={props.setSymbol}
                   />
                 );
               })}
