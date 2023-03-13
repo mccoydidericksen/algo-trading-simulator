@@ -34,9 +34,15 @@ function App() {
                 onClick={() => {
                   console.log(selection);
                   axios
-                    .get(baseURL + `${symbol}&outputsize=compact&apikey=${import.meta.env.VITE_API_KEY}`)
+                    .get(baseURL + `${symbol}&outputsize=full&apikey=${import.meta.env.VITE_API_KEY}`)
                     .then((response) => {
-                      setPrices(response.data);
+                      const filtered = Object.keys(response.data['Time Series (Daily)']).filter((key) => {
+                        const date = new Date(key);
+                        const today = new Date();
+                        const diff = Math.floor((today - date) / (1000 * 60 * 60 * 24));
+                        return diff <= startDate * 30;
+                      });
+                      setPrices(filtered.map((key) => [parseInt(response.data['Time Series (Daily)'][key]['4. close']), key]));
                     });
                 }}
               >Submit</button>
