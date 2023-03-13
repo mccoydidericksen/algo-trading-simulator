@@ -38,9 +38,10 @@ function App() {
                     .get(baseURL + `${symbol}&outputsize=full&apikey=${import.meta.env.VITE_API_KEY}`)
                     .then(async (response) => {
                       if(!response.data['Time Series (Daily)']) {
-                        alert(response.data.note)
+                        alert(response.data)
                         return
                       }
+                      console.log(response)
                       const filtered = Object.keys(response.data['Time Series (Daily)']).filter((key) => {
                         const date = new Date(key);
                         const today = new Date();
@@ -50,6 +51,7 @@ function App() {
                       });
                       const filteredPrices = filtered.map((key) => [parseFloat(response.data['Time Series (Daily)'][key]['4. close']), key]);
                       const results = await Strategies[algo](filteredPrices, investment);
+                      console.log(results);
                       await setPrices(filteredPrices);
                       await setResults(results);
                     });
