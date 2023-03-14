@@ -7,6 +7,10 @@ export default function SearchItem(props) {
               onClick={(e) => {
                 document.getElementById('simple-search').value = e.target.id;
                 props.setSymbol(e.target.id);
+                setTimeout(() => {
+                  props.setStocks(null);
+                }
+                , 500);
               }}
               id={props.symbol}
               name="helper-radio"

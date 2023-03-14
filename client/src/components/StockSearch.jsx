@@ -78,6 +78,7 @@ export default function StockSearch(props) {
                     symbol={stock['1. symbol']}
                     name={stock['2. name']}
                     setSymbol={props.setSymbol}
+                    setStocks={props.setStocks}
                   />
                 );
               })}
