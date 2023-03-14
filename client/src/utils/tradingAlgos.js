@@ -38,8 +38,8 @@ const Strategies = {
       const price = prices[i][0];
       if (prevMA < price && currMA >= price) {
         // Sell all shares
-        cash += (Math.round((shares * price) * 100) / 100);
         if (tradingHistory.buyCount > tradingHistory.sellCount) {
+          cash += Math.round(shares * price * 100) / 100;
           const history = {
             cash: Math.round(cash * 100) / 100,
             shares,
@@ -53,9 +53,9 @@ const Strategies = {
         shares = 0;
       } else if (prevMA >= price && currMA < price) {
         // Buy as many shares as possible
-        shares += Math.floor(cash / price);
-        cash -= (Math.round((shares * price) * 100) / 100);
         if (tradingHistory.sellCount >= tradingHistory.buyCount) {
+          shares += Math.floor(cash / price);
+          cash -= Math.round(shares * price * 100) / 100;
           const history = {
             cash: Math.round(cash * 100) / 100,
             shares,
@@ -70,7 +70,7 @@ const Strategies = {
       }
     }
     if (shares > 0) {
-      cash += (Math.round((shares * prices[prices.length - 1][0]) * 100) / 100);
+      cash += Math.round(shares * prices[prices.length - 1][0] * 100) / 100;
       tradingHistory.history.push({
         cash: Math.round(cash * 100) / 100,
         shares,
@@ -82,7 +82,7 @@ const Strategies = {
     }
 
     tradingHistory.cash = Math.round(cash * 100) / 100;
-    tradingHistory.profit = (Math.round((cash - initialCash) * 100) / 100);
+    tradingHistory.profit = Math.round((cash - initialCash) * 100) / 100;
     return tradingHistory;
   },
 };

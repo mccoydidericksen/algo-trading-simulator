@@ -35,6 +35,7 @@ export default function StockSearch(props) {
           <input
             onChange={(e) => {
               e.preventDefault();
+              props.setSymbol(e.target.value);
               if (e.target.value === '') return props.setStocks(null);
               axios
                 .get(
@@ -42,6 +43,10 @@ export default function StockSearch(props) {
                     `${e.target.value}&apikey=${import.meta.env.VITE_API_KEY}`
                 )
                 .then((response) => {
+                  if(!response.data.bestMatches) {
+                    alert(JSON.stringify(response.data.Note))
+                    return
+                  }
                   props.setStocks(response.data.bestMatches);
                 });
             }}
@@ -56,9 +61,7 @@ export default function StockSearch(props) {
       {props.stocks && props.stocks.length !== 0 && (
         <div
           onBlur={() => {
-            setTimeout(() => {
               props.setStocks(null);
-            }, 100);
           }}
           id="star"
           className="my-2 flex items-center w-full bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"

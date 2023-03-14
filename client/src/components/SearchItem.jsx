@@ -5,9 +5,8 @@ export default function SearchItem(props) {
           <div className="flex items-left">
             <input
               onClick={(e) => {
-                console.log(e.target.id)
-                props.setSymbol(e.target.id)
-                document.getElementById('simple-search').value = e.target.value
+                document.getElementById('simple-search').value = e.target.id;
+                props.setSymbol(e.target.id);
               }}
               id={props.symbol}
               name="helper-radio"

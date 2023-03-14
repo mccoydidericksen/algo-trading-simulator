@@ -9,17 +9,17 @@ export default function DatePicker(props) {
           props.setStartDate(parseInt(e.target.value));
         }}
         type="range"
-        min="3"
-        max="12"
-        defaultValue="6"
+        min="12"
+        max="48"
+        defaultValue="24"
         className="range range-primary"
-        step="3"
+        step="12"
       />
       <div className="w-96 flex justify-between text-xs px-2">
-        <span>3 months ago</span>
-        <span>6 months ago</span>
-        <span>9 months ago</span>
         <span>1 year ago</span>
+        <span>2 years ago</span>
+        <span>3 years ago</span>
+        <span>4 years ago</span>
       </div>
     </div>
   );

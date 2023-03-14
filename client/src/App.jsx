@@ -33,15 +33,17 @@ function App() {
               <AlgoSelect setAlgo={setAlgo} algo={algo}/>
               <button className="btn btn-primary"
                 onClick={() => {
-                  console.log(selection);
+                  if (!symbol || !startDate || !investment || !algo) {
+                    alert('Please fill out all fields');
+                    return;
+                  }
                   axios
                     .get(baseURL + `${symbol}&outputsize=full&apikey=${import.meta.env.VITE_API_KEY}`)
                     .then(async (response) => {
                       if(!response.data['Time Series (Daily)']) {
-                        alert(response.data)
+                        alert(JSON.stringify(response.data.Note))
                         return
                       }
-                      console.log(response)
                       const filtered = Object.keys(response.data['Time Series (Daily)']).filter((key) => {
                         const date = new Date(key);
                         const today = new Date();
@@ -49,7 +51,7 @@ function App() {
                         return diff <= startDate * 30;
 
                       });
-                      const filteredPrices = filtered.map((key) => [parseFloat(response.data['Time Series (Daily)'][key]['4. close']), key]);
+                      const filteredPrices = filtered.map((key) => [parseFloat(response.data['Time Series (Daily)'][key]['4. close']), key]).reverse();
                       const results = await Strategies[algo](filteredPrices, investment);
                       console.log(results);
                       await setPrices(filteredPrices);
