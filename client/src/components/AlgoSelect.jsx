@@ -11,6 +11,7 @@ export default function AlgoSelect(props) {
         Pick your trading strategy
       </option>
       <option value="simpleMovingAvg">Simple Moving Average</option>
+      <option value="bollingerBands">Bollinger Bands</option>
     </select>
   );
 }
