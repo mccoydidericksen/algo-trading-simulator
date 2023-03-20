@@ -74,12 +74,13 @@ import ResultsCard from './components/ResultsCard';
 const prices = JSON.parse(localStorage.getItem('prices'));
 const results = JSON.parse(localStorage.getItem('results'));
 const symbol = 'AAPL';
+const algo = 'Simple Moving Average';
 const startingCash = 10000;
 function App() {
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="flex grid grid-cols-1 gap-3 justify-center">
-        <ResultsCard results={results} prices={prices} symbol={symbol} startingCash={startingCash}/>
+        <ResultsCard results={results} prices={prices} symbol={symbol} startingCash={startingCash} algo={algo} />
           <LineChart prices={prices} results={results} />
         </div>
     </div>
