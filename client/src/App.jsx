@@ -15,7 +15,7 @@ import History from './pages/History';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: 'https://algo-trading-whatif.herokuapp.com/graphql',
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
@@ -39,7 +39,6 @@ const client = new ApolloClient({
 
 function App() {
   const [userId, setUserId] = React.useState(localStorage.getItem('user_id'));
-  console.log(userId)
   const [loggedIn, setLoggedIn] = React.useState(
     localStorage.getItem('id_token') ? true : false
   );
@@ -64,7 +63,7 @@ function App() {
                 />
               }
             />
-                        <Route
+            <Route
               path="/signup"
               element={
                 <SignUp
