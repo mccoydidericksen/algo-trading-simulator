@@ -6,6 +6,7 @@ import InvestmentPicker from './components/InvestmentPicker';
 import AlgoSelect from './components/AlgoSelect';
 import Strategies from './utils/tradingAlgos';
 import LineChart from './components/LineChart';
+import ResultsCard from './components/ResultsCard';
 
 // function App() {
 //   const [stocks, setStocks] = React.useState(null);
@@ -72,10 +73,13 @@ import LineChart from './components/LineChart';
 
 const prices = JSON.parse(localStorage.getItem('prices'));
 const results = JSON.parse(localStorage.getItem('results'));
+const symbol = 'AAPL';
+const startingCash = 10000;
 function App() {
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="flex grid grid-cols-1 gap-3 justify-center">
+        <ResultsCard results={results} prices={prices} symbol={symbol} startingCash={startingCash}/>
           <LineChart prices={prices} results={results} />
         </div>
     </div>

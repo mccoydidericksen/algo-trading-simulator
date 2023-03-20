@@ -87,7 +87,7 @@ const LineChart = (props) => {
                       return { text: `Started trading with $${props.datum.cash}` };
                     }
                     return { text: `${props.datum.action.toUpperCase()} ${props.datum.shares} shares for $${props.datum.y}
-                    new cash total is ${props.datum.cash}` };
+                    new cash total is $${props.datum.cash}` };
                   }
                 }
               ];
