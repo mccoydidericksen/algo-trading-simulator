@@ -7,8 +7,9 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import Home from './pages/Home';
+import Login from './pages/Login';
+import NavBar from './components/NavBar';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -35,18 +36,25 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const [userId, setUserId] = React.useState();
-  console.log(userId);
+  const [userId, setUserId] = React.useState(localStorage.getItem('user_id'));
+  const [loggedIn, setLoggedIn] = React.useState(localStorage.getItem('id_token') ? true : false);
   return (
     <ApolloProvider client={client}>
+    <div className="flex flex-col justify-center items-center">
+        <NavBar />
       <Router>
             <Routes>
               <Route 
                 path="/"
                 element={<Home setUserId={setUserId} userId={userId} />}
               />
+              <Route
+                path="/login"
+                element={<Login setUserId={setUserId} userId={userId} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+              />
             </Routes>
       </Router>
+    </div>
     </ApolloProvider>
   );
 }

@@ -12,8 +12,6 @@ import Login from '../components/Login';
 import { useQuery, useMutation } from '@apollo/client';
 
 import { ADD_RESULT } from '../utils/mutations';
-import { QUERY_ME } from '../utils/queries';
-
 
 function Home(props) {
   const [stocks, setStocks] = React.useState(null);
@@ -33,9 +31,8 @@ function Home(props) {
   };
   const [addResult, { error }] = useMutation(ADD_RESULT);
   return (
-      <div>
-      <div className="flex flex-col justify-center items-center">
-        <NavBar />
+    <div>
+
         {prices && results && (
           <>
             <ResultsCard
@@ -105,23 +102,16 @@ function Home(props) {
                     if (filteredPrices && results) {
                       await setPrices(filteredPrices);
                       await setResults(results);
-                      const data = {                           stock: symbol,
-                        algorithm: algo,
-                        initialInvestment: investment,
-                        finalInvestment: results.cash,
-                        startDate: results.history[0].date, 
-                        user: props.userId,}
-                        console.log(data);
                       addResult({
                         variables: {
-                           stock: symbol,
-                           algorithm: algo,
-                           initialInvestment: investment,
-                           finalInvestment: results.cash,
-                           startDate: results.history[0].date,
-                           user: props.userId,   
+                          stock: symbol,
+                          algorithm: algo,
+                          initialInvestment: investment,
+                          finalInvestment: results.cash,
+                          startDate: results.history[0].date,
+                          user: props.userId,
                         },
-                        });
+                      });
                     }
                   });
               }}
@@ -130,10 +120,7 @@ function Home(props) {
             </button>
           </div>
         </div>
-
       </div>
-      <Login setUserId={props.setUserId}/>
-    </div>
   );
 }
 
