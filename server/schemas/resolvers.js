@@ -14,12 +14,18 @@ const resolvers = {
         user: async (parent, { username }) => {
             return User.findOne({ username }).populate('results');
           },
-        me: async (parent, args, context) => {
-            if (context.user) {
-              return User.findOne({ _id: context.user._id }).populate('results');
+          me: async (parent, args, context) => {
+            if (context) {
+              console.log(context);
+              const userData = await User.findOne({ username: context.user })
+                .select('-__v -password')
+                .populate('results');
+      
+              return userData;
             }
-            throw new AuthenticationError('You need to be logged in!');
-          },
+      
+            throw new AuthenticationError('Not logged in');
+          }
 
     },
 
@@ -45,6 +51,17 @@ const resolvers = {
             const token = signToken(user);
       
             return { token, user };
+          },
+          addResult: async (parent, { algorithm, stock, startDate, initialInvestment, finalInvestment, user }) => {
+            const result = await Results.create({
+              algorithm,
+              stock,
+              startDate,
+              initialInvestment,
+              finalInvestment,
+              user
+            });
+           return result;
           },
     }
 };

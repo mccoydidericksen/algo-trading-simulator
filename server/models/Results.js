@@ -17,19 +17,11 @@ const resultsSchema = new Schema({
         type: Date,
         required: true
     },
-    endDate: {
-        type: Date,
-        required: true
-    },
     initialInvestment: {
         type: Number,
         required: true
     },
     finalInvestment: {
-        type: Number,
-        required: true
-    },
-    shares: {
         type: Number,
         required: true
     },
