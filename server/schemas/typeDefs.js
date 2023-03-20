@@ -19,7 +19,6 @@ const typeDefs = gql`
         initialInvestment: Float
         finalInvestment: Float
         resultCreated: String
-        createdDate: String
     }
 
     type Auth {
@@ -38,7 +37,7 @@ const typeDefs = gql`
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        addResult(algorithm: String!, stock: String!, startDate: String!, initialInvestment: Float!, finalInvestment: Float!, user: ID!): Results
+        addResult(algorithm: String!, stock: String!, startDate: String!, initialInvestment: Float!, finalInvestment: Float!, user: ID!, resultCreated: String!): Results
         removeResult(_id: ID!): Results
     }
 

@@ -27,7 +27,7 @@ const resultsSchema = new Schema({
     },
     resultCreated: {
         type: String,
-        default: Date.now.toString()
+        required: true
     },
 });
 

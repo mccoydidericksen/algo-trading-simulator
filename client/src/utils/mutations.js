@@ -32,6 +32,7 @@ export const ADD_RESULT = gql`
     $initialInvestment: Float!
     $finalInvestment: Float!
     $user: ID!
+    $resultCreated: String!
   ) {
     addResult(
       algorithm: $algorithm
@@ -40,6 +41,7 @@ export const ADD_RESULT = gql`
       initialInvestment: $initialInvestment
       finalInvestment: $finalInvestment
       user: $user
+      resultCreated: $resultCreated
     ) {
       _id
       user

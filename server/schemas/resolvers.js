@@ -48,14 +48,15 @@ const resolvers = {
       
             return { token, user };
           },
-          addResult: async (parent, { algorithm, stock, startDate, initialInvestment, finalInvestment, user }) => {
+          addResult: async (parent, { algorithm, stock, startDate, initialInvestment, finalInvestment, user, resultCreated }) => {
             const result = await Results.create({
               algorithm,
               stock,
               startDate,
               initialInvestment,
               finalInvestment,
-              user
+              user,
+              resultCreated
             });
            return result;
           },

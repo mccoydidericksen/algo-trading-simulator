@@ -7,9 +7,7 @@ import AlgoSelect from '../components/AlgoSelect';
 import Strategies from '../utils/tradingAlgos';
 import LineChart from '../components/LineChart';
 import ResultsCard from '../components/ResultsCard';
-import NavBar from '../components/NavBar';
-import Login from '../components/Login';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import { ADD_RESULT } from '../utils/mutations';
 
@@ -110,7 +108,7 @@ function Home(props) {
                           finalInvestment: results.cash,
                           startDate: results.history[0].date,
                           user: props.userId,
-                          createdDate: new Date().toLocaleDateString()
+                          resultCreated: new Date().toDateString(),
                         },
                       });
                     }

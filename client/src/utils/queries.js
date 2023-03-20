@@ -10,7 +10,6 @@ export const QUERY_RESULTS = gql`
             initialInvestment
             finalInvestment
             resultCreated
-            createdDate
         }
     }
 `;
