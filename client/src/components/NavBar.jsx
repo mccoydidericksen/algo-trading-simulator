@@ -12,7 +12,7 @@ const NavBar = (props) => {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a href={loggedIn ? '/history': '/login'}>History</a>
+            <a href={loggedIn ? '/history' : '/login'}>History</a>
           </li>
           {loggedIn ? (
             <li>
@@ -26,9 +26,14 @@ const NavBar = (props) => {
               </a>
             </li>
           ) : (
-            <li>
-              <a href="/login">Login</a>
-            </li>
+            <>
+              <li>
+                <a href="/login">Login</a>
+              </li>
+              <li>
+                <a href="/signup">Sign Up</a>
+              </li>
+            </>
           )}
         </ul>
       </div>

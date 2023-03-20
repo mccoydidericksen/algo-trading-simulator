@@ -1,12 +1,13 @@
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
+import { ADD_USER, LOGIN_USER } from '../utils/mutations';
 import { useState } from 'react';
 
 import Auth from '../utils/auth';
 
-const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+const SignUp = (props) => {
+  const [formState, setFormState] = useState({ username: '', email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [signup, { newUser }] = useMutation(ADD_USER);
   const setUserId = props.setUserId;
 
   // update state based on form input changes
@@ -23,6 +24,10 @@ const Login = (props) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
+      const { newUser } = await signup({
+        variables: { ...formState },
+        });
+        console.log(newUser)
       const { data } = await login({
         variables: { ...formState },
       });
@@ -38,14 +43,26 @@ const Login = (props) => {
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
+          <h1 className="text-5xl font-bold">Sign Up!</h1>
           <p className="py-3">
-            Login to your account to access your trading history and more!
+            Sign up to access your trading history and more!
           </p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
             <form onSubmit={handleFormSubmit}>
+            <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Username</span>
+                </label>
+                <input
+                  onChange={handleChange}
+                  name="username"
+                  type="text"
+                  placeholder="username"
+                  className="input input-bordered"
+                />
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -85,4 +102,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default SignUp;
