@@ -19,6 +19,7 @@ const typeDefs = gql`
         initialInvestment: Float
         finalInvestment: Float
         resultCreated: String
+        createdDate: String
     }
 
     type Auth {
@@ -27,10 +28,10 @@ const typeDefs = gql`
     }
 
     type Query {
-        me: User
+        me(_id: ID!): User
         users: [User]
-        user(username: String!): User
-        results(username: String): [Results]
+        user(id: ID!): User
+        results(userId: ID!): [Results]
         result(_id: ID!): Results
     }
 

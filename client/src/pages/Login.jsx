@@ -29,6 +29,7 @@ const Login = (props) => {
       setUserId(data.login.user._id);
       Auth.login(data.login.token);
       localStorage.setItem('user_id', data.login.user._id);
+      props.setLoggedIn(true);
     } catch (e) {
       alert(e.message);
     }

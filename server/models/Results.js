@@ -14,7 +14,7 @@ const resultsSchema = new Schema({
         required: true
     },
     startDate: {
-        type: Date,
+        type: String,
         required: true
     },
     initialInvestment: {
@@ -26,9 +26,9 @@ const resultsSchema = new Schema({
         required: true
     },
     resultCreated: {
-        type: Date,
-        default: Date.now
-    }
+        type: String,
+        default: Date.now.toString()
+    },
 });
 
 const Results = model('Results', resultsSchema);

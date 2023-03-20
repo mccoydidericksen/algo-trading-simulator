@@ -11,21 +11,17 @@ const resolvers = {
                 .select('-__v -password')
                 .populate('results')
         },
-        user: async (parent, { username }) => {
-            return User.findOne({ username }).populate('results');
+        user: async (parent, { id }) => {
+            return User.findOne({ _id: id }).populate('results');
           },
-          me: async (parent, args, context) => {
-            if (context) {
-              console.log(context);
-              const userData = await User.findOne({ username: context.user })
-                .select('-__v -password')
-                .populate('results');
-      
-              return userData;
-            }
-      
-            throw new AuthenticationError('Not logged in');
-          }
+        me: async (parent, {user} ) => {
+            const profile = await User.findOne({ _id: user }).populate('results');
+            return profile;
+          },
+        results: async (parent, { userId }) => {
+            const params = { user: userId };
+            return Results.find(params).sort({ createdAt: -1 });
+        },
 
     },
 

@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NavBar from './components/NavBar';
+import History from './pages/History';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -37,24 +38,35 @@ const client = new ApolloClient({
 
 function App() {
   const [userId, setUserId] = React.useState(localStorage.getItem('user_id'));
-  const [loggedIn, setLoggedIn] = React.useState(localStorage.getItem('id_token') ? true : false);
+  console.log(userId)
+  const [loggedIn, setLoggedIn] = React.useState(
+    localStorage.getItem('id_token') ? true : false
+  );
   return (
     <ApolloProvider client={client}>
-    <div className="flex flex-col justify-center items-center">
-        <NavBar />
-      <Router>
-            <Routes>
-              <Route 
-                path="/"
-                element={<Home setUserId={setUserId} userId={userId} />}
-              />
-              <Route
-                path="/login"
-                element={<Login setUserId={setUserId} userId={userId} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
-              />
-            </Routes>
-      </Router>
-    </div>
+      <div className="flex flex-col justify-center items-center">
+        <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={<Home setUserId={setUserId} userId={userId} />}
+            />
+            <Route
+              path="/login"
+              element={
+                <Login
+                  setUserId={setUserId}
+                  userId={userId}
+                  loggedIn={loggedIn}
+                  setLoggedIn={setLoggedIn}
+                />
+              }
+            />
+            <Route path="/history" element={<History userId={userId} />} />
+          </Routes>
+        </Router>
+      </div>
     </ApolloProvider>
   );
 }

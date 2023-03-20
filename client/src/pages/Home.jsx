@@ -110,6 +110,7 @@ function Home(props) {
                           finalInvestment: results.cash,
                           startDate: results.history[0].date,
                           user: props.userId,
+                          createdDate: new Date().toLocaleDateString()
                         },
                       });
                     }
