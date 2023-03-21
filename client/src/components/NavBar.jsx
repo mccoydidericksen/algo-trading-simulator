@@ -10,7 +10,7 @@ const NavBar = (props) => {
         </a>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-vertical md:menu-horizontal px-1">
           <li>
             <a href={loggedIn ? '/history' : '/login'}>History</a>
           </li>
