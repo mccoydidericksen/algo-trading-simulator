@@ -6,7 +6,7 @@ export default function StockSearch(props) {
   const apiKey = import.meta.env.VITE_API_KEY;
   const baseURL =
     'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=';
-  if(props.symbol !== null) {
+  if (props.symbol !== null) {
     document.getElementById('simple-search').value = props.symbol;
   }
 
@@ -33,14 +33,21 @@ export default function StockSearch(props) {
             </svg>
           </div>
           <input
-            onChange={(e) => {
-              e.preventDefault();
-              props.setSymbol(e.target.value);
-              if (e.target.value === '') return props.setStocks(null);
+            type="text"
+            id="simple-search"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500"
+            placeholder="Search for a stock"
+            required
+          ></input>
+          <button
+            onClick={(e) => {
+              const input = document.getElementById('simple-search').value;
+              props.setSymbol(input);
+              if (input === '') return props.setStocks(null);
               axios
                 .get(
                   baseURL +
-                    `${e.target.value}&apikey=${import.meta.env.VITE_API_KEY}`
+                    `${input}&apikey=${import.meta.env.VITE_API_KEY}`
                 )
                 .then((response) => {
                   if(!response.data.bestMatches) {
@@ -50,18 +57,17 @@ export default function StockSearch(props) {
                   props.setStocks(response.data.bestMatches);
                 });
             }}
-            type="text"
-            id="simple-search"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search for a stock"
-            required
-          ></input>
+            type="submit"
+            className="text-white absolute right-1.5 top-1 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Search
+          </button>
         </div>
       </div>
       {props.stocks && props.stocks.length !== 0 && (
         <div
           onBlur={() => {
-              props.setStocks(null);
+            props.setStocks(null);
           }}
           id="star"
           className="my-2 flex items-center w-full bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
